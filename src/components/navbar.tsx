@@ -16,9 +16,9 @@ export async function Navbar() {
   const session = await auth();
 
   return (
-    <nav className="bg-background/95 ~p-4/6 supports-[backdrop-filter]:bg-background/60 fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between backdrop-blur">
+    <nav className="fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between p-4 lg:p-6">
       <Link href="/" className="flex items-center space-x-2">
-        <span className="text-xl font-bold">Verifactu</span>
+        <span className="text-lg font-bold">Verifactu</span>
       </Link>
       <div className="flex items-center space-x-4">
         <ThemeToggle />

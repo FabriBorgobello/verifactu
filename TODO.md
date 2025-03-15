@@ -1,9 +1,6 @@
 ## Misc
 
-- Install radix components.
 - Add CloudFlare routing to hello@verifactu.f0.ar
-- Remove TW fluid classes (e.g. ~p-4/6)
-
 - Configure Resend for Email
 - Configure React PDF to generate PDFs
 - Configure S3 to store PDFs
