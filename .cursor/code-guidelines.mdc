@@ -1,0 +1,10 @@
+---
+description: General guideline for code styling
+globs: *
+alwaysApply: false
+---
+- Environment variables should not be directly accessed using `process.env`, but through the corresponding config file e.g.:`import { env } from "@/config/server";`
+- This project uses Next.js as a Frontend and Backend, TailwindCSS v4 and ShadCN UI for components, Drizzle as ORM, next-auth for authentication, Vercel for deployments, and a PostgreSQL database located in a VPS.
+- Keep the UI minimalist, but feel free to add subtle animations with tailwindcss-animate or motion (ex Framer Motion). It is very important to import files from the new package: `import { motion } from "motion/react";` instead of `import { motion } from "framer-motion";`.
+- This project is using next-theme to handle light or dark mode, so instead of using direct colors for general purposes, use the variables configured in tailwind and `globals.css`.
+- For forms, we use `react-hook-forms` with `zodResolver` from `@hookform/resolvers/zod`. Give feedback of succesful/error operations using `sonner` and
