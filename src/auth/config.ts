@@ -12,7 +12,6 @@ export const authConfig = {
   ],
   pages: {
     signIn: "/auth/signin",
-    signOut: "/auth/signout",
   },
   callbacks: {},
   events: {},

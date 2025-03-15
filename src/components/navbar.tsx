@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 import { ThemeToggle } from "./theme-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +25,10 @@ export async function Navbar() {
         {session?.user ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+              <Button
+                variant="ghost"
+                className="relative h-8 w-8 cursor-pointer rounded-full"
+              >
                 <Avatar className="h-8 w-8">
                   <AvatarImage
                     src={session.user.image || ""}
@@ -59,9 +62,18 @@ export async function Navbar() {
                 <Link href="/chat">Chat</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/api/auth/signout">Log out</Link>
-              </DropdownMenuItem>
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut();
+                }}
+              >
+                <DropdownMenuItem asChild>
+                  <button type="submit" className="flex w-full">
+                    Sign Out
+                  </button>
+                </DropdownMenuItem>
+              </form>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
