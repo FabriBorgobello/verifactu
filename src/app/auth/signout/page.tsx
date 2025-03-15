@@ -5,7 +5,7 @@ import { LogOut } from "lucide-react";
 
 export default function SignOutPage() {
   return (
-    <div className="flex h-full items-center justify-center p-4 lg:p-6">
+    <div className="flex h-full items-center justify-center p-4 md:p-6">
       <div className="border-muted flex w-full max-w-md flex-col items-center justify-center gap-2 rounded-lg border p-6 shadow-md lg:p-12">
         <TypographyH3>Sign Out</TypographyH3>
         <TypographyMuted>Are you sure you want to sign out?</TypographyMuted>

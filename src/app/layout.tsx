@@ -34,7 +34,7 @@ export default function RootLayout({
         className={cn(
           geistMono.variable,
           montserrat.variable,
-          "text-foreground flex min-h-screen flex-col font-sans antialiased",
+          "text-foreground flex min-h-screen flex-col overflow-auto font-sans antialiased",
         )}
       >
         <ThemeProvider
@@ -44,7 +44,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="h-screen pt-[68px]">{children}</div>
+          <div className="h-screen pt-20">{children}</div>
           {env.NEXT_PUBLIC_ENVIRONMENT && <TailwindWidget position="right" />}
           <Toaster />
         </ThemeProvider>

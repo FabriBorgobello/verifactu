@@ -16,7 +16,7 @@ export async function Navbar() {
   const session = await auth();
 
   return (
-    <nav className="fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between p-4 lg:p-6">
+    <nav className="bg-background fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between p-4 shadow md:p-6">
       <Link href="/" className="flex items-center space-x-2">
         <span className="text-lg font-bold">Verifactu</span>
       </Link>
@@ -53,7 +53,7 @@ export async function Navbar() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href="/profile">Profile</Link>
+                <Link href="/invoices">Invoices</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/settings">Settings</Link>
