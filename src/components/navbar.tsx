@@ -56,10 +56,7 @@ export async function Navbar() {
                 <Link href="/invoices">Invoices</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/settings">Settings</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/chat">Chat</Link>
+                <Link href="/expenses">Expenses</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <form
