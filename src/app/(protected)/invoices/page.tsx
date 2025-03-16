@@ -39,74 +39,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-// Mock data for invoices
-const invoices = [
-  {
-    id: "INV-0001",
-    date: new Date("2023-01-15"),
-    recipient: "Acme Corp",
-    amount: 1250.0,
-    currency: "EUR",
-    status: "paid",
-  },
-  {
-    id: "INV-0002",
-    date: new Date("2023-02-03"),
-    recipient: "Globex Industries",
-    amount: 3450.75,
-    currency: "EUR",
-    status: "pending",
-  },
-  {
-    id: "INV-0003",
-    date: new Date("2023-02-15"),
-    recipient: "Stark Enterprises",
-    amount: 5000.0,
-    currency: "EUR",
-    status: "paid",
-  },
-  {
-    id: "INV-0004",
-    date: new Date("2023-03-01"),
-    recipient: "Wayne Industries",
-    amount: 2750.5,
-    currency: "EUR",
-    status: "overdue",
-  },
-  {
-    id: "INV-0005",
-    date: new Date("2023-03-10"),
-    recipient: "Umbrella Corporation",
-    amount: 1800.25,
-    currency: "EUR",
-    status: "pending",
-  },
-  {
-    id: "INV-0006",
-    date: new Date("2023-03-22"),
-    recipient: "Oscorp",
-    amount: 4200.0,
-    currency: "EUR",
-    status: "paid",
-  },
-  {
-    id: "INV-0007",
-    date: new Date("2023-04-05"),
-    recipient: "LexCorp",
-    amount: 3100.75,
-    currency: "EUR",
-    status: "overdue",
-  },
-  {
-    id: "INV-0008",
-    date: new Date("2023-04-18"),
-    recipient: "Cyberdyne Systems",
-    amount: 2900.5,
-    currency: "EUR",
-    status: "pending",
-  },
-];
+import { formatCurrency } from "@/lib/utils";
+import { Invoice, invoices } from "./mocks";
 
 export default function InvoiceDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -119,52 +53,33 @@ export default function InvoiceDashboard() {
   );
 
   // Function to get the appropriate badge color based on status
-  const getStatusBadge = (status: (typeof invoices)[number]["status"]) => {
+  const getStatusBadge = (status: Invoice["status"]) => {
     switch (status) {
       case "paid":
         return (
-          <Badge
-            variant="secondary"
-            className="pointer-events-none bg-green-500"
-          >
+          <Badge className="pointer-events-none border-green-600 bg-green-50 text-green-600 dark:bg-green-600 dark:text-green-50">
             Paid
           </Badge>
         );
       case "pending":
         return (
-          <Badge
-            variant="outline"
-            className="pointer-events-none border-amber-600 text-amber-600"
-          >
+          <Badge className="pointer-events-none border-amber-600 bg-amber-50 text-amber-600 dark:bg-amber-600 dark:text-amber-50">
             Pending
           </Badge>
         );
       case "overdue":
         return (
-          <Badge variant="destructive" className="pointer-events-none">
+          <Badge className="pointer-events-none border-red-600 bg-red-50 text-red-600 dark:bg-red-600 dark:text-red-50">
             Overdue
           </Badge>
         );
       default:
-        return (
-          <Badge variant="secondary" className="pointer-events-none">
-            {status}
-          </Badge>
-        );
+        status satisfies never;
     }
   };
 
-  // Function to format currency
-  const formatCurrency = (amount: number, currency: string) => {
-    const formatter = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency,
-    });
-    return formatter.format(amount);
-  };
-
   return (
-    <div className="bg-muted/40 flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col">
       <div className="flex flex-col">
         <main className="grid flex-1 items-start gap-4 p-4 md:gap-8 md:p-6">
           <Card className="w-full overflow-hidden">
