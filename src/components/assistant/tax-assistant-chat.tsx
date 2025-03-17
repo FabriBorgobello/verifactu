@@ -36,16 +36,17 @@ const QUICK_ACTIONS = [
 ];
 
 export function TaxAssistantChat() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+  const { messages, input, handleInputChange, handleSubmit, status, append } =
     useChat({
       api: "/api/chat",
     });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const handleQuickAction = (message: string) => {
-    const formData = new FormData();
-    formData.append("message", message);
-    // TODO: Handle quick action
+    append({
+      role: "user",
+      content: message,
+    });
   };
 
   return (
@@ -96,7 +97,7 @@ export function TaxAssistantChat() {
           <Button
             type="submit"
             size="icon"
-            disabled={isLoading || !input.trim()}
+            disabled={status === "streaming" || !input.trim()}
           >
             <Send className="h-5 w-5" />
           </Button>
