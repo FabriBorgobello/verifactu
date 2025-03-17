@@ -58,6 +58,9 @@ export async function Navbar() {
               <DropdownMenuItem asChild>
                 <Link href="/expenses">Expenses</Link>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/assistant">Assistant</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <form
                 action={async () => {
