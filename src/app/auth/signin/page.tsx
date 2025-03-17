@@ -7,7 +7,7 @@ const PROVIDERS = [{ name: "Google", icon: FcGoogle, id: "google" }];
 
 export default function LoginPage() {
   return (
-    <div className="flex h-full items-center justify-center p-4 md:p-6">
+    <div className="flex h-full -translate-y-10 items-center justify-center p-4 md:p-6">
       <div className="border-muted flex w-full max-w-md flex-col items-center justify-center gap-2 rounded-lg border p-6 shadow-md lg:p-12">
         <TypographyH3>Welcome Back</TypographyH3>
         <TypographyMuted>Sign in or create an account</TypographyMuted>

@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "./ui/badge";
 
 export async function Navbar() {
   const session = await auth();
@@ -53,13 +54,18 @@ export async function Navbar() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
+                <Link href="/">Home</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/invoices">Invoices</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/expenses">Expenses</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/assistant">Assistant</Link>
+                <Link href="/assistant">
+                  Assistant <Badge>New</Badge>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <form
