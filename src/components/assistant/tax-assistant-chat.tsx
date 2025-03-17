@@ -5,7 +5,6 @@ import { useChat } from "@ai-sdk/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { Send, FileText } from "lucide-react";
 import { QuickActionButton } from "./quick-action-button";
@@ -50,7 +49,7 @@ export function TaxAssistantChat() {
   };
 
   return (
-    <Card className="w-full overflow-hidden rounded-lg border">
+    <Card className="w-full rounded-lg border">
       <div className="flex h-[600px] flex-col">
         {messages.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center space-y-6 p-6">
@@ -75,33 +74,32 @@ export function TaxAssistantChat() {
             </div>
           </div>
         ) : (
-          <ScrollArea className="flex-1 p-4">
+          <div className="flex-1 overflow-auto p-4">
             {messages.map((message, index) => (
               <ChatMessage key={index} message={message} />
             ))}
             <div ref={messagesEndRef} />
-          </ScrollArea>
+          </div>
         )}
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex items-center space-x-2 border-t p-4"
-        >
-          <Input
-            name="message"
-            placeholder="Ask a tax question..."
-            value={input}
-            onChange={handleInputChange}
-            className="flex-1"
-          />
-          <Button
-            type="submit"
-            size="icon"
-            disabled={status === "streaming" || !input.trim()}
-          >
-            <Send className="h-5 w-5" />
-          </Button>
-        </form>
+        <div className="flex-shrink-0 border-t p-4">
+          <form onSubmit={handleSubmit} className="flex items-center space-x-2">
+            <Input
+              name="message"
+              placeholder="Ask a tax question..."
+              value={input}
+              onChange={handleInputChange}
+              className="flex-1"
+            />
+            <Button
+              type="submit"
+              size="icon"
+              disabled={status === "streaming" || !input.trim()}
+            >
+              <Send className="h-5 w-5" />
+            </Button>
+          </form>
+        </div>
       </div>
     </Card>
   );
