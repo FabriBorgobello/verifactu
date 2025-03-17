@@ -32,15 +32,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { Invoice, invoices } from "./mocks";
+import { PageHeader } from "@/components/ui/page-header";
 
 export default function InvoiceDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -82,14 +77,12 @@ export default function InvoiceDashboard() {
     <div className="flex min-h-screen w-full flex-col">
       <div className="flex flex-col">
         <main className="grid flex-1 items-start gap-4 p-4 md:gap-8 md:p-6">
+          <PageHeader
+            title="Invoices"
+            description="Manage and track your invoices"
+          />
           <Card className="w-full overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="grid gap-1">
-                <CardTitle>Invoices</CardTitle>
-                <CardDescription>
-                  Manage and track your invoices
-                </CardDescription>
-              </div>
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm" className="h-8 gap-1">
                   <Download className="h-3.5 w-3.5" />

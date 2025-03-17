@@ -1,16 +1,23 @@
 import { TaxAssistantChat } from "@/components/assistant/tax-assistant-chat";
+import { Card, CardContent } from "@/components/ui/card";
+import { PageHeader } from "@/components/ui/page-header";
 
-export default function Home() {
+export default function AssistantPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-24">
-      <div className="w-full max-w-5xl items-center justify-between text-sm">
-        <h1 className="mb-8 text-center text-4xl font-bold">Tax Assistant</h1>
-        <p className="text-muted-foreground mb-8 text-center">
-          Your AI-powered tax expert. Ask questions, upload documents, and get
-          the tax help you need.
-        </p>
-        <TaxAssistantChat />
+    <div className="flex min-h-screen w-full flex-col">
+      <div className="flex flex-col">
+        <main className="grid flex-1 items-start gap-4 p-4 md:gap-8 md:p-6">
+          <PageHeader
+            title="Tax Assistant"
+            description="Your AI-powered tax expert. Ask questions, upload documents, and get the tax help you need."
+          />
+          <Card className="w-full overflow-hidden">
+            <CardContent>
+              <TaxAssistantChat />
+            </CardContent>
+          </Card>
+        </main>
       </div>
-    </main>
+    </div>
   );
 }
