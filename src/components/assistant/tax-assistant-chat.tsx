@@ -5,36 +5,16 @@ import { useChat } from "@ai-sdk/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-
 import { Send, FileText } from "lucide-react";
 import { QuickActionButton } from "./quick-action-button";
 import { ChatMessage } from "./chat-message";
+import { Dictionary } from "@/dictionaries";
 
-// Quick action templates
-const QUICK_ACTIONS = [
-  {
-    title: "Tax Deductions",
-    description: "What tax deductions am I eligible for?",
-    icon: <FileText className="h-4 w-4" />,
-  },
-  {
-    title: "Filing Status",
-    description: "Which filing status should I choose?",
-    icon: <FileText className="h-4 w-4" />,
-  },
-  {
-    title: "Tax Credits",
-    description: "What tax credits can I claim?",
-    icon: <FileText className="h-4 w-4" />,
-  },
-  {
-    title: "Deadline",
-    description: "When is the tax filing deadline this year?",
-    icon: <FileText className="h-4 w-4" />,
-  },
-];
+interface TaxAssistantChatProps {
+  dict: Dictionary;
+}
 
-export function TaxAssistantChat() {
+export function TaxAssistantChat({ dict }: TaxAssistantChatProps) {
   const { messages, input, handleInputChange, handleSubmit, status, append } =
     useChat({
       api: "/api/chat",
@@ -48,16 +28,39 @@ export function TaxAssistantChat() {
     });
   };
 
+  // Quick action templates
+  const QUICK_ACTIONS = [
+    {
+      title: dict.assistant.quickActions.taxDeductions.title,
+      description: dict.assistant.quickActions.taxDeductions.description,
+      icon: <FileText className="h-4 w-4" />,
+    },
+    {
+      title: dict.assistant.quickActions.filingStatus.title,
+      description: dict.assistant.quickActions.filingStatus.description,
+      icon: <FileText className="h-4 w-4" />,
+    },
+    {
+      title: dict.assistant.quickActions.taxCredits.title,
+      description: dict.assistant.quickActions.taxCredits.description,
+      icon: <FileText className="h-4 w-4" />,
+    },
+    {
+      title: dict.assistant.quickActions.deadline.title,
+      description: dict.assistant.quickActions.deadline.description,
+      icon: <FileText className="h-4 w-4" />,
+    },
+  ];
+
   return (
     <Card className="w-full rounded-lg border">
       <div className="flex h-[600px] flex-col">
         {messages.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center space-y-6 p-6">
             <div className="space-y-2 text-center">
-              <h3 className="text-xl font-medium">Welcome to Tax Assistant</h3>
+              <h3 className="text-xl font-medium">{dict.assistant.welcome}</h3>
               <p className="text-muted-foreground">
-                Ask any tax-related question or choose from the quick actions
-                below.
+                {dict.assistant.welcomeDescription}
               </p>
             </div>
 
@@ -86,7 +89,7 @@ export function TaxAssistantChat() {
           <form onSubmit={handleSubmit} className="flex items-center space-x-2">
             <Input
               name="message"
-              placeholder="Ask a tax question..."
+              placeholder={dict.assistant.inputPlaceholder}
               value={input}
               onChange={handleInputChange}
               className="flex-1"

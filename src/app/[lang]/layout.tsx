@@ -6,7 +6,8 @@ import { env } from "@/config/client";
 import { Navbar } from "@/components/navbar";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
-import "./globals.css";
+import { Locale } from "@/dictionaries";
+import "../globals.css";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -23,13 +24,16 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang: Locale }>;
 }>) {
+  const { lang } = await params;
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body
         className={cn(
           geistMono.variable,
@@ -43,7 +47,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <Navbar lang={lang} />
           <div className="h-screen pt-20">{children}</div>
           {env.NEXT_PUBLIC_ENVIRONMENT && <TailwindWidget position="right" />}
           <Toaster />

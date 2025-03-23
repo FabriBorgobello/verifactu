@@ -37,8 +37,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { Expense, expenses } from "./mocks";
 import { PageHeader } from "@/components/ui/page-header";
+import { Dictionary } from "@/dictionaries";
 
-export default function ExpenseDashboard() {
+interface ExpensesDashboardClientProps {
+  dict: Dictionary;
+}
+
+export function ExpensesDashboardClient({
+  dict,
+}: ExpensesDashboardClientProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter expenses based on search term
@@ -55,19 +62,19 @@ export default function ExpenseDashboard() {
       case "approved":
         return (
           <Badge className="pointer-events-none border-green-600 bg-green-50 text-green-600 dark:bg-green-600 dark:text-green-50">
-            Approved
+            {dict.expenses.statuses.approved}
           </Badge>
         );
       case "pending":
         return (
           <Badge className="pointer-events-none border-amber-600 bg-amber-50 text-amber-600 dark:bg-amber-600 dark:text-amber-50">
-            Pending
+            {dict.expenses.statuses.pending}
           </Badge>
         );
       case "rejected":
         return (
           <Badge className="pointer-events-none border-red-600 bg-red-50 text-red-600 dark:bg-red-600 dark:text-red-50">
-            Rejected
+            {dict.expenses.statuses.rejected}
           </Badge>
         );
       default:
@@ -92,7 +99,7 @@ export default function ExpenseDashboard() {
 
     return (
       <Badge className={`pointer-events-none ${colors[category]}`}>
-        {category.charAt(0).toUpperCase() + category.slice(1)}
+        {dict.expenses.categories[category]}
       </Badge>
     );
   };
@@ -102,19 +109,23 @@ export default function ExpenseDashboard() {
       <div className="flex flex-col">
         <main className="grid flex-1 items-start gap-4 p-4 md:gap-8 md:p-6">
           <PageHeader
-            title="Expenses"
-            description="Manage and track your expenses"
+            title={dict.expenses.title}
+            description={dict.expenses.description}
           />
           <Card className="w-full overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm" className="h-8 gap-1">
                   <Download className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline-block">Export</span>
+                  <span className="hidden sm:inline-block">
+                    {dict.expenses.export}
+                  </span>
                 </Button>
                 <Button size="sm" className="h-8 gap-1">
                   <Plus className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline-block">New Expense</span>
+                  <span className="hidden sm:inline-block">
+                    {dict.expenses.newExpense}
+                  </span>
                 </Button>
               </div>
             </CardHeader>
@@ -124,7 +135,7 @@ export default function ExpenseDashboard() {
                   <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
                   <Input
                     type="search"
-                    placeholder="Search expenses..."
+                    placeholder={dict.expenses.searchPlaceholder}
                     className="pl-8"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -133,31 +144,51 @@ export default function ExpenseDashboard() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto flex gap-1">
-                      <span>Category</span>
+                      <span>{dict.expenses.category}</span>
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-40">
-                    <DropdownMenuItem>All</DropdownMenuItem>
-                    <DropdownMenuItem>Travel</DropdownMenuItem>
-                    <DropdownMenuItem>Office</DropdownMenuItem>
-                    <DropdownMenuItem>Meals</DropdownMenuItem>
-                    <DropdownMenuItem>Supplies</DropdownMenuItem>
-                    <DropdownMenuItem>Other</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.categories.all}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.categories.travel}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.categories.office}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.categories.meals}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.categories.supplies}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.categories.other}
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto flex gap-1">
-                      <span>Status</span>
+                      <span>{dict.expenses.status}</span>
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-40">
-                    <DropdownMenuItem>All</DropdownMenuItem>
-                    <DropdownMenuItem>Approved</DropdownMenuItem>
-                    <DropdownMenuItem>Pending</DropdownMenuItem>
-                    <DropdownMenuItem>Rejected</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.statuses.all}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.statuses.approved}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.statuses.pending}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {dict.expenses.statuses.rejected}
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -166,12 +197,16 @@ export default function ExpenseDashboard() {
                   <Table className="overflow-x-auto">
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-[120px]">Date</TableHead>
-                        <TableHead>Merchant</TableHead>
-                        <TableHead>Expense ID</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead className="text-right">Amount</TableHead>
-                        <TableHead>Status</TableHead>
+                        <TableHead className="w-[120px]">
+                          {dict.expenses.date}
+                        </TableHead>
+                        <TableHead>{dict.expenses.merchant}</TableHead>
+                        <TableHead>{dict.expenses.expenseId}</TableHead>
+                        <TableHead>{dict.expenses.category}</TableHead>
+                        <TableHead className="text-right">
+                          {dict.expenses.amount}
+                        </TableHead>
+                        <TableHead>{dict.expenses.status}</TableHead>
                         <TableHead className="w-[50px]"></TableHead>
                       </TableRow>
                     </TableHeader>
@@ -179,7 +214,7 @@ export default function ExpenseDashboard() {
                       {filteredExpenses.length === 0 ? (
                         <TableRow>
                           <TableCell colSpan={7} className="h-24 text-center">
-                            No expenses found.
+                            {dict.expenses.noExpensesFound}
                           </TableCell>
                         </TableRow>
                       ) : (
@@ -207,31 +242,35 @@ export default function ExpenseDashboard() {
                                     className="h-8 w-8 p-0"
                                   >
                                     <MoreHorizontal className="h-4 w-4" />
-                                    <span className="sr-only">Open menu</span>
+                                    <span className="sr-only">
+                                      {dict.expenses.actions}
+                                    </span>
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                  <DropdownMenuLabel>
+                                    {dict.expenses.actions}
+                                  </DropdownMenuLabel>
                                   <DropdownMenuItem>
                                     <Receipt className="mr-2 h-4 w-4" />
-                                    View Receipt
+                                    {dict.expenses.viewReceipt}
                                   </DropdownMenuItem>
                                   <DropdownMenuItem>
                                     <Download className="mr-2 h-4 w-4" />
-                                    Download
+                                    {dict.expenses.download}
                                   </DropdownMenuItem>
                                   <DropdownMenuItem>
                                     <Mail className="mr-2 h-4 w-4" />
-                                    Email
+                                    {dict.expenses.email}
                                   </DropdownMenuItem>
                                   <DropdownMenuItem>
                                     <Tag className="mr-2 h-4 w-4" />
-                                    Change Category
+                                    {dict.expenses.changeCategory}
                                   </DropdownMenuItem>
                                   <DropdownMenuSeparator />
                                   <DropdownMenuItem className="text-destructive focus:text-destructive">
                                     <Trash className="mr-2 h-4 w-4" />
-                                    Delete
+                                    {dict.expenses.delete}
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
@@ -245,15 +284,17 @@ export default function ExpenseDashboard() {
               </div>
               <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="text-muted-foreground flex-1 text-sm">
-                  Showing <strong>{filteredExpenses.length}</strong> of{" "}
-                  <strong>{expenses.length}</strong> expenses
+                  {dict.expenses.showing}{" "}
+                  <strong>{filteredExpenses.length}</strong> {dict.expenses.of}{" "}
+                  <strong>{expenses.length}</strong>{" "}
+                  {dict.expenses.expensesLower}
                 </div>
                 <div className="space-x-2">
                   <Button variant="outline" size="sm">
-                    Previous
+                    {dict.expenses.previous}
                   </Button>
                   <Button variant="outline" size="sm">
-                    Next
+                    {dict.expenses.next}
                   </Button>
                 </div>
               </div>
