@@ -10,6 +10,7 @@ const envSchema = z.object({
   AUTH_GOOGLE_SECRET: z.string(),
   AUTH_GOOGLE_ID: z.string(),
   OPENAI_API_KEY: z.string(),
+  GROUNDX_API_KEY: z.string(),
 });
 
 export const env = envSchema.parse({
@@ -18,4 +19,5 @@ export const env = envSchema.parse({
   AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
   AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  GROUNDX_API_KEY: process.env.GROUNDX_API_KEY,
 });
