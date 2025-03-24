@@ -2,7 +2,7 @@ import { env } from "@/config/client";
 import { sql } from "drizzle-orm";
 import { pgTableCreator } from "drizzle-orm/pg-core";
 import { timestamp } from "drizzle-orm/pg-core";
-export const verifactuPgTable = pgTableCreator((name) => {
+export const fynzoPgTable = pgTableCreator((name) => {
   return env.NEXT_PUBLIC_ENVIRONMENT === "production"
     ? `verifactu_${name}`
     : `dev_verifactu_${name}`;

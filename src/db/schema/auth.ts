@@ -6,9 +6,9 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
-import { verifactuPgTable } from "./utils";
+import { fynzoPgTable } from "./utils";
 
-export const users = verifactuPgTable("user", {
+export const users = fynzoPgTable("user", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -18,7 +18,7 @@ export const users = verifactuPgTable("user", {
   image: text("image"),
 });
 
-export const accounts = verifactuPgTable(
+export const accounts = fynzoPgTable(
   "account",
   {
     userId: text("userId")
@@ -44,7 +44,7 @@ export const accounts = verifactuPgTable(
   ],
 );
 
-export const sessions = verifactuPgTable("session", {
+export const sessions = fynzoPgTable("session", {
   sessionToken: text("sessionToken").primaryKey(),
   userId: text("userId")
     .notNull()
@@ -52,7 +52,7 @@ export const sessions = verifactuPgTable("session", {
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
-export const verificationTokens = verifactuPgTable(
+export const verificationTokens = fynzoPgTable(
   "verificationToken",
   {
     identifier: text("identifier").notNull(),
@@ -68,7 +68,7 @@ export const verificationTokens = verifactuPgTable(
   ],
 );
 
-export const authenticators = verifactuPgTable(
+export const authenticators = fynzoPgTable(
   "authenticator",
   {
     credentialID: text("credentialID").notNull().unique(),

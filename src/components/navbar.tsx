@@ -23,7 +23,7 @@ export async function Navbar({ lang }: { lang: Locale }) {
   return (
     <nav className="bg-background fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between p-4 shadow md:p-6">
       <Link href={`/${lang}`} className="flex items-center space-x-2">
-        <span className="text-lg font-bold">Verifactu</span>
+        <span className="text-lg font-bold">Fynzo</span>
       </Link>
       <div className="flex items-center space-x-4">
         <LanguageSwitcher />
