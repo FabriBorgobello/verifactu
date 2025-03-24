@@ -2,6 +2,7 @@ import type { Message } from "ai";
 import { cn } from "@/lib/utils";
 import { Avatar } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
+import { MemoizedMarkdown } from "./memoized-markdown";
 
 interface ChatMessageProps {
   message: Message;
@@ -27,11 +28,11 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
       <Card
         className={cn(
-          "max-w-[80%] rounded-xl px-4 py-3",
+          "prose dark:prose-invert max-w-[80%] rounded-xl px-4 py-3",
           isUser ? "bg-primary text-primary-foreground" : "bg-muted",
         )}
       >
-        <div className="whitespace-pre-wrap">{message.content}</div>
+        <MemoizedMarkdown content={message.content} id={message.id} />
       </Card>
 
       {isUser && (
