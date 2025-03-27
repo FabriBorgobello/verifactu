@@ -81,7 +81,12 @@ export function TaxAssistantChat({ dict }: TaxAssistantChatProps) {
             {messages.map((message, index) => (
               <ChatMessage key={index} message={message} />
             ))}
-            <div ref={messagesEndRef} />
+            <div
+              ref={(el) => {
+                messagesEndRef.current = el;
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+            />
           </div>
         )}
 

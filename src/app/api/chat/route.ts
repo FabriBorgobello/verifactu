@@ -1,3 +1,4 @@
+import { getTaxDomicileForm, presentTaxDomicileForm } from "@/app/ai/tools";
 import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
 
@@ -7,6 +8,8 @@ export async function POST(req: Request) {
   const result = streamText({
     model: openai("gpt-4o"),
     messages,
+    tools: { getTaxDomicileForm, presentTaxDomicileForm },
+    maxSteps: 10,
     system: `
       You are a professional task assistant specialized in Spanish taxes. Your role is to assist users with their tax-related queries and tasks, providing clear, actionable, and legally accurate information.
       
@@ -32,6 +35,12 @@ export async function POST(req: Request) {
       - General taxes: https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas.html
       - IRPF (Personal Income Tax): https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas/irpf.html
       - IVA (Value Added Tax): https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas/iva.html
+
+      ### Tax domicile change:
+      - If the user wants to change their tax domicile, use the tool "getTaxDomicileForm" to retrieve Form 030. Send them the link to the form.
+      - Then, ask if they would like to submit the form themselves or if they prefer that the assistant does it on their behalf.
+      - If the user wants to submit the form themselves, provide clear instructions on how to do it, including where to access it, required credentials, and supporting documents.
+      - ONLY IF THE USER EXPLICITLY ASKED THE ASSISTANT TO DO IT. If the user wants the assistant to submit the form on their behalf, use the tool "presentTaxDomicileForm" to complete the submission. ALWAYS ASK FOR CONFIRMATION.
     `,
   });
 
